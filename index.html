@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <div class="logo">
+            <img src="Awais.png" alt="Awais">
+        </div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+
+        </ul>
+    </div>
+</div>
+<section id="home">
+<h1 class="ss">Welcome to my Portfolio website</h1>
+     <div class="section1">
+        <div class="I1">
+             <img src="muna.png" alt="Awais - Web Developer">
+             <div class="h">
+            <h1 >Hello, I'm Awais</h1>
+            <p> I'm a Web Developer</p>
+            </div>
+        </div>
+
+     </div>
+    </div>
+</section>
+    <section id="about">
+    <div class="section2">
+        <h1 class="ss1">ABOUT ME</h1>
+        <div class="about-text">
+        <h3>I build amazing web experiences</h3>
+                <p class="s2">I'm a passionate developer with 3+ years of experience in React, JavaScript, and CSS. <br> I love turning ideas into reality.</p>
+                <div class="skills">
+                    <span>HTML/CSS</span>
+                    <span>JavaScript</span>
+                    <span>React</span>
+                    <span>UI/UX</span>
+                </div>
+                </div>
+        <div class="I3">
+            <img src="we2.jpg" alt="Web Development Example">
+        </div>
+
+      
+
+     </div>
+     </section>
+     <section id="contact" class="contact">
+        <h2 class="ss">Get In Touch</h2>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+        <div id="formMessage" class="form-message"></div>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+    </section>
+
+    
+    <footer>
+        <p>&copy; 2024 Awais. All rights reserved.</p>
+    </footer>
+</div>
+
+<script>
+// Contact form JavaScript functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+
+    // Form submission handler
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Validate form
+        if (validateForm()) {
+            // Simulate form submission
+            showMessage('Thank you! Your message has been sent successfully.', 'success');
+            contactForm.reset();
+        }
+    });
+
+    // Form validation function
+    function validateForm() {
+        let isValid = true;
+        
+        // Clear previous error messages
+        clearErrors();
+        
+        // Validate name
+        if (nameInput.value.trim().length < 2) {
+            showFieldError(nameInput, 'Name must be at least 2 characters long');
+            isValid = false;
+        }
+        
+        // Validate email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(emailInput.value)) {
+            showFieldError(emailInput, 'Please enter a valid email address');
+            isValid = false;
+        }
+        
+        // Validate message
+        if (messageInput.value.trim().length < 10) {
+            showFieldError(messageInput, 'Message must be at least 10 characters long');
+            isValid = false;
+        }
+        
+        return isValid;
+    }
+
+    // Show field error
+    function showFieldError(field, message) {
+        field.style.borderColor = '#ff4757';
+        field.style.boxShadow = '0 0 5px rgba(255, 71, 87, 0.3)';
+        
+        // Create error message element
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'field-error';
+        errorDiv.textContent = message;
+        errorDiv.style.color = '#ff4757';
+        errorDiv.style.fontSize = '12px';
+        errorDiv.style.marginTop = '5px';
+        
+        field.parentNode.insertBefore(errorDiv, field.nextSibling);
+    }
+
+    // Clear all errors
+    function clearErrors() {
+        const inputs = [nameInput, emailInput, messageInput];
+        inputs.forEach(input => {
+            input.style.borderColor = '';
+            input.style.boxShadow = '';
+        });
+        
+        // Remove error messages
+        const errorMessages = document.querySelectorAll('.field-error');
+        errorMessages.forEach(msg => msg.remove());
+    }
+
+    // Show form message
+    function showMessage(message, type) {
+        formMessage.textContent = message;
+        formMessage.className = `form-message ${type}`;
+        formMessage.style.display = 'block';
+        formMessage.style.padding = '10px';
+        formMessage.style.borderRadius = '5px';
+        formMessage.style.marginTop = '15px';
+        
+        if (type === 'success') {
+            formMessage.style.backgroundColor = '#2ed573';
+            formMessage.style.color = 'white';
+        } else {
+            formMessage.style.backgroundColor = '#ff4757';
+            formMessage.style.color = 'white';
+        }
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+            formMessage.style.display = 'none';
+        }, 5000);
+    }
+
+    // Add input focus effects
+    const inputs = [nameInput, emailInput, messageInput];
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.style.transform = 'scale(1.02)';
+            this.style.transition = 'transform 0.2s ease';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.style.transform = 'scale(1)';
+        });
+    });
+
+    // Social links hover effects
+    const socialLinks = document.querySelectorAll('.social-links a');
+    socialLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px) scale(1.1)';
+            this.style.transition = 'transform 0.3s ease';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Smooth scrolling for navigation links
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                targetSection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
+
